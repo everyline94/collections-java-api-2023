@@ -7,7 +7,7 @@ public class ConjuntoConvidados {
 
     private Set<Convidado> convidadoSet;
 
-    public ConjuntoConvidados(Set<Convidado> convidadoSet) {
+    public ConjuntoConvidados() {
         this.convidadoSet = new HashSet<>();
     }
 
