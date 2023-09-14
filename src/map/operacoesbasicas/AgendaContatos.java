@@ -1,43 +1,53 @@
 package map.operacoesbasicas;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.HashMap;
+import java.util.Map;
 
 public class AgendaContatos {
 
-    private Set<Contato> contatoSet;
+    private Map<String, Integer> agendaContatoMap;
 
     public AgendaContatos() {
-        this.contatoSet = new HashSet<>();
+        this.agendaContatoMap = new HashMap<>();
     }
 
-    public void adicionarContato(String nome, int numero) {
-        contatoSet.add(new Contato(nome, numero));
+    public void adicionarContato(String nome, Integer telefone) {
+        agendaContatoMap.put(nome, telefone);
     }
 
-    public void exibirContatos() {
-        System.out.println(contatoSet);
-    }
-
-    public Set<Contato> pesquisarPorNome(String nome) {
-        Set<Contato> contatosPorNome = new HashSet<>();
-        for(Contato c : contatoSet) {
-            if(c.getNome().startsWith(nome)) {
-                contatosPorNome.add(c);
-            }
+    public void removerContato(String nome) {
+        if(!agendaContatoMap.isEmpty()) {
+            agendaContatoMap.remove(nome);
         }
-        return contatosPorNome;
     }
 
-    public Contato atualizarNumeroContato(String nome, int novoNumero) {
-        Contato contatoAtualizado = null;
-        for (Contato c : contatoSet) {
-            if(c.getNome().equalsIgnoreCase(nome)) {
-                c.setNumero(novoNumero);
-                contatoAtualizado = c;
-                break;
-            }
+    public void exibirContato() {
+        System.out.println(agendaContatoMap);
+    }
+
+    public Integer pesquisarPorNome(String nome) {
+        Integer numeroPorNome = null;
+        if(!agendaContatoMap.isEmpty()) {
+            numeroPorNome = agendaContatoMap.get(nome);
         }
-        return contatoAtualizado;
+        return numeroPorNome;
+    }
+
+    public static void main(String[] args) {
+        AgendaContatos agendaContatos = new AgendaContatos();
+
+        agendaContatos.adicionarContato("Bruno", 123456);
+        agendaContatos.adicionarContato("Marina", 654321);
+        agendaContatos.adicionarContato("Regina", 135783);
+        agendaContatos.adicionarContato("Gabriel", 498765);
+        agendaContatos.adicionarContato("Gaby", 777867);
+        agendaContatos.adicionarContato("Kani", 997887);
+
+        agendaContatos.exibirContato();
+
+        agendaContatos.removerContato("Gaby");
+        agendaContatos.exibirContato();
+
+        System.out.println("o numero é: " + agendaContatos.pesquisarPorNome("Gabriel"));
     }
 }
